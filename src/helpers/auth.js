@@ -12,3 +12,8 @@ export function signInWithGoogle() {
   const provider = new firebaseApp.GoogleAuthProvider();
   return firebaseApp().signInWithPopup(provider);
 }
+
+export function signInWithGitHub() {
+  const provider = new firebaseApp.GithubAuthProvider();
+  return firebaseApp().signInWithPopup(provider);
+}
