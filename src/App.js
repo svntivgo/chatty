@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   Route,
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Navigate,
 } from "react-router-dom";
 import Home from './pages/Home';
@@ -44,10 +44,29 @@ function PublicRoute({ component: Component, authenticated, ...rest }) {
 }
 
 function App() {
-  return (
-    <div >
-
-    </div>
+  return this.state.loading === true ? (
+    <h2>Loading...</h2>
+  ) : (
+    <Router>
+      <Routes>
+        <Route exact path="/" component={Home}></Route>
+        <PrivateRoute
+          path="/chat"
+          authenticated={this.state.authenticated}
+          component={Chat}
+        ></PrivateRoute>
+        <PublicRoute
+          path="/signup"
+          authenticated={this.state.authenticated}
+          component={Signup}
+        ></PublicRoute>
+        <PublicRoute
+          path="/login"
+          authenticated={this.state.authenticated}
+          component={Login}
+        ></PublicRoute>
+      </Routes>
+    </Router>
   );
 }
 
