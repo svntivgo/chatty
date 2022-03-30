@@ -1,19 +1,26 @@
 import firebaseApp from "../services/firebase";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+
+const auth = getAuth(firebaseApp);
 
 export function signup(email, password) {
-  return firebaseApp().createUserWithEmailAndPassword(email, password);
+  return auth.createUserWithEmailAndPassword(email, password);
 }
 
 export function signin(email, password) {
-  return firebaseApp().signInWithEmailAndPassword(email, password);
+  return auth.signInWithEmailAndPassword(email, password);
 }
 
 export function signInWithGoogle() {
-  const provider = new firebaseApp.GoogleAuthProvider();
-  return firebaseApp().signInWithPopup(provider);
+  const provider = new auth.GoogleAuthProvider();
+  return auth.signInWithPopup(provider);
 }
 
 export function signInWithGitHub() {
-  const provider = new firebaseApp.GithubAuthProvider();
-  return firebaseApp().signInWithPopup(provider);
+  const provider = new auth.GithubAuthProvider();
+  return auth.signInWithPopup(provider);
 }

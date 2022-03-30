@@ -10,6 +10,13 @@ import Chat from './pages/Chat';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import firebaseApp from './services/firebase';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+
+const auth = getAuth(firebaseApp)
 
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
   return (
@@ -53,7 +60,7 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    firebaseApp().onAuthStateChanged((user) => {
+    auth.onAuthStateChanged((user) => {
       if (user) {
         this.setState({
           authenticated: true,
@@ -74,22 +81,22 @@ export class App extends Component {
     ) : (
       <Router>
         <Routes>
-          <Route exact path="/" component={Home}></Route>
-          <PrivateRoute
+          <Route exact path="/" element={<Home />}></Route>
+          <Route
             path="/chat"
             authenticated={this.state.authenticated}
-            component={Chat}
-          ></PrivateRoute>
-          <PublicRoute
+            element={<Chat />}
+          ></Route>
+          <Route
             path="/signup"
             authenticated={this.state.authenticated}
-            component={Signup}
-          ></PublicRoute>
-          <PublicRoute
+            element={<Signup />}
+          ></Route>
+          <Route
             path="/login"
             authenticated={this.state.authenticated}
-            component={Login}
-          ></PublicRoute>
+            element={<Login />}
+          ></Route>
         </Routes>
       </Router>
     );
