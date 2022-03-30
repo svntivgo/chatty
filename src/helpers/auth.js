@@ -7,3 +7,8 @@ export function signup(email, password) {
 export function signin(email, password) {
   return firebaseApp().signInWithEmailAndPassword(email, password);
 }
+
+export function signInWithGoogle() {
+  const provider = new firebaseApp.GoogleAuthProvider();
+  return firebaseApp().signInWithPopup(provider);
+}
