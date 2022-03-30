@@ -43,6 +43,32 @@ function PublicRoute({ component: Component, authenticated, ...rest }) {
   );
 }
 
+export class App1 extends Component {
+  constructor() {
+    super();
+    this.state = {
+      authenticated: false,
+      loading: true,
+    };
+  }
+}
+
+function componentDidMount() {
+  auth().onAuthStateChanged((user) => {
+    if (user) {
+      this.setState({
+        authenticated: true,
+        loading: false,
+      });
+    } else {
+      this.setState({
+        authenticated: false,
+        loading: false,
+      });
+    }
+  })
+}
+
 function App() {
   return this.state.loading === true ? (
     <h2>Loading...</h2>
